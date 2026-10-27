@@ -1,0 +1,207 @@
+---Blinking LED P1 ONLINE---
+
+Pin Connection
+LED Anode(Big Leg +) -> resistor GPIO(pin-1)
+LED Cathode(Small Leg -) -> negative GPIO(pin-9)
+
+
+---Telegram Bot P2---
+
+Pin Connection
+2 LED's
+1st LED Anode(Big Leg +) -> GPIO(pin-1)
+2nd LED Anode(Big Leg +) -. GPIO(pin-17)
+
+Both LED's Cathode(Small Leg -) connect to negative -> GPIO(pin-9)
+
+
+---GPS Module P4 ONLINE---
+
+Pin Connection
+GPS     Raspberry Pin
+VCC        2 5v
+GND        6 GND			
+RXD        8 TXD
+TXD        10 RXD
+
+
+---TIME 4D-7S P3---
+
+Pin Connection
+GPS     Raspberry pin 
+CLK      16 GPIO-23
+DIO      24 GPIO-18
+VCC      2 5V
+GND      6 GND
+
+
+---Oscilloscope P5---
+
+Pin Connection
+ADS1115 ADC    Raspberry pin    
+VDD               17 3.3V
+GND               9 GND 
+SCL               5 GPIO-3
+SDA               3 GPIO-2
+
+
+---16x2 LCD P6---
+
+Pin Connection
+LCD      Raspberry pin      
+GND         6 GND
+VCC         4 5V
+SDA         3 GPIO-2
+SCL         5 GPIO-3
+
+
+---RFID P7---
+
+Pin Connection
+RC522      Raspberry pin
+VCC          1 3.3V          
+GND          6
+SDA          24
+SCK          23
+MOSI         19
+MISO         21
+
+
+
+---Finger Sensor P8---
+
+Pin Connection
+Finger Sensor     USB to TTL converter 
+(R307)                   pins
+1 VCC                   3V/5V (1,2,3,17)
+2 GND                   GND (6,9,14,20,25,30,39)
+3 TX                    RX (10)
+4 RX                    TX (8)
+
+
+---Finger Sensor with LCD P11---
+
+Pin Connection
+
+1] 16x12c LCD     Raspberry pin
+     GND             6 GND
+     VCC             2 5V
+     SDA             3 GPIO-2
+     SCL             5 GPIO-3
+
+2] R307/305 Finger     Raspberry
+   sensor                 pin
+   RED(VCC)              4 5V
+   BLACK(GND)            9/14 GND
+   YELLOW/GREEN(TXD)     10 GPIO-15
+   WHITE/BLUE(RXD)       8 GPIO-14
+
+
+
+--- Fingerprint-Authenticated Door-Lock System P12---
+
+Pin Connection
+
+1] Relay Module     Raspberry pin
+       VCC            2 5V                
+       GND            9 GND
+    RELAY IN          11 GPIO-17
+
+2] R307/R305 Fingerprint   Raspberry pin
+           VCC               2/4 5V
+           GND               6 GND
+           TX                10 GPIO-15/RX
+           RX                8 GPIO-14/TX
+
+
+
+---MQTT P13---
+
+Pin Connection
+
+LED     Raspberry pin
+VCC      12 GPIO-18 OR TRY 2 5V
+GND      6 GND
+
+
+
+---Web Dashboard P14---
+
+Pin Connection
+
+RELAY     Raspberry pin
+VCC          2 VCC
+GND          6 GND
+CH 1         12 GPIO-18
+
+
+
+---PUSH BUTTON P17 0NLINE ---
+
+Pin Connection
+
+COMPONENTS                      Raspberry pin                   
+PUSH BUTTON                      12 GPIO-18
+LED Anode(Big Leg +)             16 GPIO-23
+LED Cathode(Small Leg -)         20 GND
+PUSH BUTTON                      2 5V
+
+
+
+---CPU TEMP P18---
+
+    ONLY CODE
+
+
+---EMBEDDED ACCESS P19---
+
+Pin Connection
+1] Relay Module    Raspberry pin
+   VCC               2 5V
+   GND               9 GND
+   IN                16 GPIO-23
+
+2] LCD 16X2        Raspberry pin
+   GND               6 GND
+   VCC               4 5V
+   SDA               3 GPIO-2/SDA
+   SCL               5 GPIO-3/SCL
+
+3] R307/R305 Finger    Raspberry
+   Sensor                 pin
+    VCC                   2 5V
+    GND                   20 GND
+    TX                    10 GPIO 15/RX      
+    RX                    8 GPIO-4/TX
+
+4] RC522 RFID     Raspberry pin
+   VCC              1 3.3V
+   RST              22 GPIO-25
+   GND              30 GND
+   MISO             21 GPIO-9
+   MOSI             19 GPIO-10
+   SCK              23 GPIO-11
+   SDA/SS           24 GPIO-8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
