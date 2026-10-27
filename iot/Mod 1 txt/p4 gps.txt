@@ -1,0 +1,20 @@
+Open terminal –
+pip3 show tm1637
+pip3 install python-tm1637
+pip3 install python-tm1637
+
+import time
+import RPi.GPIO as GPIO
+import pio
+import Ports
+GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
+pio.uart=Ports.UART () 
+while 1:      
+      Data=pio.uart.recv()
+      pio.uart.print(Data)
+
+
+USB-TTL TX  -> Pi RX  (Physical Pin 10 - GPIO 15)
+USB-TTL RX  -> Pi TX  (Physical Pin 8  - GPIO 14)
+USB-TTL GND -> Pi GND (Pin 6)

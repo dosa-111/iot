@@ -1,0 +1,50 @@
+RC522 MODULE PINS TO RASPBERRY PI CONNECTION
+
+RC522 Module Pins        Raspberry Pi Pins         Raspberry Pi (Board/Physical pins)
+
+3.3V                     3.3V                      1
+Gnd                      Gnd                       6  (Can connect with any other ground pin)
+SDA                      SPI0 CS0                  24
+SCK                      SPI0 SCLK                 23
+MOSI                     SPI0 MOSI                 19
+MISO                     SPI0 MISO                 21
+
+
+ COMMANDS :
+- sudo apt-get update 
+- sudo apt-get upgrade 
+
+- sudo raspi-config 
+- lsmod | grep spi 
+- sudo apt -get install python3-dev python3-pip 
+- sudo pip3 install spidev 
+- sudo pip3 install mfrc522 
+
+
+ PROGRAM :
+
+- To write data :
+
+import RPi.GPIO as GPIO
+from mfrc522 import SimpleMFRC522
+
+r = SimpleMFRC522()
+
+while True:
+    text = input('Enter new data : ')
+    print('Place the tag')
+    r.write(text)
+    print('Data written')
+
+- To read data :
+
+import RPi.GPIO as GPIO
+from mfrc522 import SimpleMFRC522
+
+r = SimpleMFRC522()
+
+while True:
+    print('Place the tag')
+    id, text = r.read()
+    print('ID =', id)
+    print('Data =', text)

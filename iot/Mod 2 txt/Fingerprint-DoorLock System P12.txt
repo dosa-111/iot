@@ -1,0 +1,126 @@
+Device / Pin   Raspberry Pi 4    Physical Pin
+Relay            VCC 5V              2
+Relay            GND GND             9
+Relay IN         GPIO17              11
+
+
+
+ Fingerprint Enrollment
+Here is your code in **TXT format with proper indentation**:
+
+```txt
+import serial
+import time
+import adafruit_fingerprint
+
+uart = serial.Serial(
+    "/dev/serial0",
+    baudrate=57600,
+    timeout=1
+)
+finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
+
+finger_id = int(input("Enter fingerprint ID (1-127): "))
+
+print("Place finger on sensor...")
+while finger.get_image() != adafruit_fingerprint.OK:
+    time.sleep(0.1)
+
+print("Image captured")
+
+if finger.image_2_tz(1) != adafruit_fingerprint.OK:
+    print("Image conversion failed")
+    exit()
+
+print("Remove finger")
+time.sleep(2)
+
+print("Place the same finger again...")
+while finger.get_image() != adafruit_fingerprint.OK:
+    time.sleep(0.1)
+
+if finger.image_2_tz(2) != adafruit_fingerprint.OK:
+    print("Image conversion failed")
+    exit()
+
+if finger.create_model() != adafruit_fingerprint.OK:
+    print("Fingerprints did not match")
+    exit()
+
+if finger.store_model(finger_id) == adafruit_fingerprint.OK:
+    print("Fingerprint enrolled successfully")
+    print("Stored ID:", finger_id)
+else:
+    print("Failed to store fingerprint")
+```
+
+ Main Door Lock Verification Program
+import serial
+import time
+import RPi.GPIO as GPIO
+import adafruit_fingerprint
+
+GPIO.setwarnings(False)
+
+# Change this GPIO if required
+RELAY_PIN = 17
+
+# Active-LOW relay
+RELAY_ON = GPIO.LOW
+RELAY_OFF = GPIO.HIGH
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(RELAY_PIN, GPIO.OUT, initial=RELAY_OFF)
+
+try:
+    uart = serial.Serial(
+        "/dev/serial0",
+        baudrate=57600,
+        timeout=1
+    )
+    finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
+
+    print("Fingerprint Door Lock System")
+    print("Place Finger")
+
+    while True:
+        result = finger.get_image()
+
+        if result == adafruit_fingerprint.OK:
+            print("Processing...")
+
+            # Convert image to template
+            if finger.image_2_tz(1) != adafruit_fingerprint.OK:
+                print("Fingerprint processing failed")
+                time.sleep(1)
+                continue
+
+            # Search fingerprint database
+            if finger.finger_search() == adafruit_fingerprint.OK:
+                print("Access Granted")
+                GPIO.output(RELAY_PIN, RELAY_ON)
+                print("Door Unlocked")
+                time.sleep(5)
+                GPIO.output(RELAY_PIN, RELAY_OFF)
+                print("Door Locked")
+
+            else:
+                print("Access Denied")
+                GPIO.output(RELAY_PIN, RELAY_OFF)
+
+            time.sleep(1)
+            print("Place Finger")
+
+        else:
+            # No finger or another sensor response
+            time.sleep(0.1)
+
+except Exception as e:
+    print("Communication error:", e)
+
+finally:
+    GPIO.output(RELAY_PIN, RELAY_OFF)
+    GPIO.cleanup()
+
+python3 enroll.py
+python3 door_lock.py

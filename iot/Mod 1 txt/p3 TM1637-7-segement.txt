@@ -1,0 +1,28 @@
+TM1637 Board
+Pin    Function      RPI Physical Pin    Raspberry Function
+
+GND    Ground        14                  GND
+VCC    + 5V Power    4                   5V
+DI0    Data In       18                  GPIO 24
+CLK    Clock         16                  GPIO 23
+
+Open terminal –
+pip3 show tm1637
+pip3 install python-tm1637
+pip3 install python-tm1637
+
+Code -
+
+import time
+import datetime
+import tm1637
+
+display = tm1637.TM1637(clk=23, dio=24)
+
+while True:
+    now = datetime.datetime.now()
+    hour = now.hour
+    minute = now.minute
+
+    display.numbers(hour, minute)
+    time.sleep(1)

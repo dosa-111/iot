@@ -1,0 +1,36 @@
+LCD    Pin Connect to Raspberry Pi GPIO
+GND    Pin 6 (GND)
+VCC    Pin 4 (5V)
+SDA    Pin 3 (GPIO 2 - SDA)
+SCL    Pin 5 (GPIO 3 - SCL)
+
+sudo raspi-config
+sudo apt update
+sudo apt install i2c-tools python3-smbus python3-pip
+pip3 install RPLCD
+i2cdetect -y 1
+
+
+Code: lcd_test.py
+from RPLCD.i2c import CharLCD
+from time import sleep
+# Change 0x27 if i2cdetect shows a different address
+lcd = CharLCD('PCF8574', 0x27, cols=16, rows=2)
+lcd.write_string("Hello from Pi 400!")
+sleep(3)
+lcd.clear()
+
+python3 lcd_test.py
+
+Code: custom_message.py
+from RPLCD.i2c import CharLCD
+from time import sleep
+lcd = CharLCD('PCF8574', 0x27, cols=16, rows=2)
+line1 = input("Enter line 1 (max 16 characters): ")
+line2 = input("Enter line 2 (max 16 characters): ")
+lcd.clear()
+lcd.write_string(line1[:16])
+lcd.crlf()
+lcd.write_string(line2[:16])
+sleep(5)
+lcd.clear()
